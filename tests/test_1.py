@@ -9,6 +9,10 @@ from src.pydantic_schemas.post import Post
 from configuration import SERVICE_URL
 
 def test_getting_posts():
+
+    """
+    In that test we try to connet to endpoint and get the list with information about posts
+    """
     r= requests.get(url=SERVICE_URL)
     response = Response(r)
 
