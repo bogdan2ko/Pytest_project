@@ -1,0 +1,20 @@
+# Кеши Python
+__pycache__/
+
+# Кеш pytest
+.pytest_cache/
+
+# Конфигурации редактора Visual Studio Code
+.vscode/
+
+# Виртуальное окружение
+venv/
+env/
+
+# Промежуточные файлы и временные метки
+*.egg-info/
+*.egg
+CACHEDIR.TAG
+
+# Результаты тестов, если не требуются
+allure/
