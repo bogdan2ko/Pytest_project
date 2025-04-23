@@ -22,11 +22,19 @@ from src.pydantic_schemas.user import User
 @pytest.mark.production   
 @pytest.mark.skip(reason="[ISSUE-2333] Issue with connecting to the database")
 def test_another():
+    """
+    In that test we try to check than 1 is equal to 2 
+
+    """
     assert 1 == 1 
 
 
 @pytest.mark.production
 def test_getting_users_list1(get_users, get_numbers, calculate, make_number):
+    """
+    In that test we try to connet to endpoint and get the list with information about users
+    
+    """
     Response(get_users).validate_status_code(200).validate(User)
     # print(make_number)
 
@@ -42,33 +50,20 @@ def test_getting_users_list1(get_users, get_numbers, calculate, make_number):
 ("w", "r", None)
 ])    
 def test_calculator(first_value, second_value, expected, calculate):
+    """
+    In that test we teasting calculating function with different values
+
+    """
     assert calculate(first_value, second_value) == expected
 
 
 @pytest.mark.development
 @pytest.mark.production   
 def test_another_faling():
+    """
+    In that test we try to check than 1 is equal to 2 , but with the different marks 
+
+    """
     assert 1 == 2 
    
 
-
-# {'meta': 
-#  {'pagination': 
-#   {'total': 2960, 'pages': 296, 'page': 1, 'limit': 10, 
-#    'links': 
-#    {'previous': None, 'current': 'https://gorest.co.in/public/v1/users?page=1', 'next': 'https://gorest.co.in/public/v1/users?page=2'}}},
-
-
-# 'data': [{'id': 7834439, 'name': 'Mrs. Aslesha Malik', 'email': 'aslesha_mrs_malik@champlin.test', 'gender': 'male', 'status': 'inactive'}, 
-#          {'id': 7834438, 'name': 'Lalita Saini', 'email': 'saini_lalita@rippin-parisian.example', 'gender': 'female', 'status': 'active'}, 
-#          {'id': 7834437, 'name': 'Gajabahu Guneta', 'email': 'gajabahu_guneta@miller-runolfsdottir.test', 'gender': 'male', 'status': 'inactive'}, 
-#          {'id': 7834436, 'name': 'Eshana Pandey', 'email': 'eshana_pandey@terry.example', 'gender': 'male', 'status': 'inactive'}, 
-#          {'id': 7834435, 'name': 'Ujjawal Reddy', 'email': 'reddy_ujjawal@jenkins-deckow.test', 'gender': 'female', 'status': 'active'}, 
-#          {'id': 7834434, 'name': 'Dron Butt', 'email': 'butt_dron@pfannerstill-dietrich.test', 'gender': 'male', 'status': 'inactive'}, 
-#          {'id': 7834433, 'name': 'Harinakshi Kaul', 'email': 'harinakshi_kaul@casper.test', 'gender': 'male', 'status': 'inactive'}, 
-#          {'id': 7834432, 'name': 'Acaryatanaya Abbott MD', 'email': 'md_abbott_acaryatanaya@barton-bogan.example', 'gender': 'male', 'status': 'inactive'}, 
-#          {'id': 7834430, 'name': 'Prasanna Chopra', 'email': 'prasanna_chopra@walsh.test', 'gender': 'male', 'status': 'active'}, 
-#          {'id': 7834429, 'name': 'Jitendra Gowda DC', 'email': 'jitendra_gowda_dc@satterfield-goodwin.test', 'gender': 'female', 'status': 'active'}]} 
-
-
-# pytest D:\test_Py\tests\something\users\test_users.py -s -v --durations=3 -vv  для отображения самх долгих этапов тестирования функции
