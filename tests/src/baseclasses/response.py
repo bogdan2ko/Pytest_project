@@ -14,11 +14,13 @@ class Response:
         self.response = response
         self.response_json = response.json().get("data")
         self.status_code = response.status_code
+        self.parsed_object = None
         
     def validate(self, schema):
         if isinstance(self.response_json, list):  # Проверка на список
             for item in self.response_json:
-                schema.model_validate(item)  # Валидация каждого элемента списка
+                parsed_object=schema.model_validate(item)  # Валидация каждого элемента списка
+                self.parsed_object = parsed_object
         else:
             schema.model_validate(self.response_json)  # Валидация одного объекта
         return self
@@ -31,6 +33,9 @@ class Response:
         else:
             assert self.status_code == expected_status_code, self
         return self
+    
+    def get_parsed_object(self):
+        return self.parsed_object
     
     def __str__(self):
         return (

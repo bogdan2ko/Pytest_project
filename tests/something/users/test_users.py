@@ -3,7 +3,12 @@ from configuration import SERVICE_URL1
 import requests
 import pytest
 from tests.src.baseclasses.response import Response
-from src.pydantic_schemas.user import User
+from tests.src.pydantic_schemas.user import User
+from tests.src.generators.player_localization import PlayerLocalization
+from tests.src.pydantic_schemas.computer import Computer
+from tests.src.pydantic_schemas.computer import computer
+from tests.src.enums.user_enums import Status
+
 
 # resp= requests.get(url=SERVICE_URL1)
 
@@ -36,7 +41,7 @@ def test_getting_users_list1(get_users, get_numbers, calculate, make_number):
     
     """
     Response(get_users).validate_status_code(200).validate(User)
-    # print(make_number)
+    print(get_numbers)
 
 
 
@@ -65,5 +70,66 @@ def test_another_faling():
 
     """
     assert 1 == 2 
-   
+
+
+
+#  _______________________________________________________________________________________________________________________________________________________________________________________________________   
+
+
+@pytest.mark.parametrize("status", 
+Status.list()
+)
+def test_something(status, get_player_generator):
+    """
+    In that test we try chek the parametrization of player generator
+
+    """
+    print(get_player_generator.set_status(status).build())
+
+
+
+
+# @pytest.mark.parametrize("balance_value", 
+# ["100", "0", "-10", "asd"]
+# )
+# def test_something1(balance_value, get_player_generator):
+#     """
+#     In that test we try chek the parametrization of player generator
+
+#     """
+#     print(get_player_generator.set_balance(balance_value).build())
+
+
+
+
+# @pytest.mark.parametrize("delete_key", 
+# ["account_status", "balance", "localization", "avatar"]
+# )
+# def test_something2(delete_key, get_player_generator):
+#     object_to_delete = get_player_generator.build()
+#     del object_to_delete[delete_key]
+#     print(object_to_delete)
+
+
+
+@pytest.mark.parametrize("localize, loc",  [("fr","fr_FR") ])
+def test_something3(get_player_generator, localize, loc):
+    
+    object_to_send = get_player_generator.update_inner_value(["localization", localize], PlayerLocalization(loc).set_number(15).build()).build()
+    
+    # Print the updated object
+    print(object_to_send)
+
+
+
+
+def test_pydantic_object():
+    """
+    In that test we try to check the pydantic object with the help of the response class
+
+    """
+    comp = Computer.model_validate(computer)
+    # print(comp.detailed_info.physical.color.as_rgb())
+    print(comp.model_json_schema())
+
 

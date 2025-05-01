@@ -17,4 +17,5 @@ env/
 CACHEDIR.TAG
 
 # Результаты тестов, если не требуются
-allure/
+Allures_reports/
+
